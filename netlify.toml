@@ -1,0 +1,7 @@
+[build]
+  command = "npm config set registry https://registry.npmjs.org/ && npm config set always-auth false && npm config delete //npm.artifactory.homedepot.com/:_authToken && npm install && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NPM_CONFIG_REGISTRY = "https://registry.npmjs.org/"
+  NPM_CONFIG_ALWAYS_AUTH = "false"
