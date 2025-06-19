@@ -1,0 +1,140 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.project-grid {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  transition: all $transition-slow;
+  overflow: hidden;
+  
+
+  &.blurred {
+    transform: scale(0.725);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border-radius: $spacing-2;
+  }
+
+  &.blurred .project-description {
+    display: none;
+  }
+
+  &.loading {
+    pointer-events: none;
+    
+    * {
+      pointer-events: none;
+    }
+  }
+
+  // 2x2 grid (4 items)
+  &.grid-2 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  // 3x2 grid (6 items) or 3x3 (9 items)
+  &.grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    
+    // For 6 items: 2 rows
+    &[data-items="6"] {
+      grid-template-rows: 1fr 1fr;
+    }
+    
+    // For 7-9 items: 3 rows
+    &[data-items="7"],
+    &[data-items="8"],
+    &[data-items="9"] {
+      grid-template-rows: 1fr 1fr 1fr;
+    }
+  }
+
+  // 4x2 grid (8 items) or 4x3 (12 items)
+  &.grid-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
+    // For 8 items: 2 rows
+    &[data-items="8"] {
+      grid-template-rows: 1fr 1fr;
+    }
+    
+    // For 9-12 items: 3 rows
+    &[data-items="9"],
+    &[data-items="10"],
+    &[data-items="11"],
+    &[data-items="12"] {
+      grid-template-rows: 1fr 1fr 1fr;
+    }
+  }
+
+  // Mobile responsiveness
+  @media (max-width: $breakpoint-lg) {
+    
+    &.grid-4 {
+      grid-template-columns: 1fr 1fr 1fr;
+      
+      // Recalculate rows for 3-column layout
+      &[data-items="8"] {
+        grid-template-rows: 1fr 1fr 1fr; // 3x3 for 8 items
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    
+    &.grid-3,
+    &.grid-4 {
+      grid-template-columns: 1fr 1fr;
+      
+      // Recalculate rows for 2-column layout
+      &[data-items="3"],
+      &[data-items="4"] {
+        grid-template-rows: 1fr 1fr;
+      }
+      
+      &[data-items="5"],
+      &[data-items="6"] {
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+      
+      &[data-items="7"],
+      &[data-items="8"] {
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+      }
+      
+      &[data-items="9"],
+      &[data-items="10"] {
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr 1fr !important;
+    
+    // Two columns - calculate rows based on item count
+    &[data-items="2"] { grid-template-rows: 1fr; }
+    &[data-items="3"],
+    &[data-items="4"] { grid-template-rows: 1fr 1fr; }
+    &[data-items="5"],
+    &[data-items="6"] { grid-template-rows: 1fr 1fr 1fr; }
+    &[data-items="7"],
+    &[data-items="8"] { grid-template-rows: 1fr 1fr 1fr 1fr; }
+    &[data-items="9"],
+    &[data-items="10"] { grid-template-rows: 1fr 1fr 1fr 1fr 1fr; }
+  }
+}
+
+// Grid entrance animation
+.project-grid-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.project-grid-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all $transition-slow;
+}

@@ -1,0 +1,771 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.project-detail-overlay {
+  @include absolute-full;
+  @include backdrop-blur;
+  z-index: $z-index-loader;
+  background: rgba(255,255,255,.75);
+  animation: fade-in $transition-slow;
+}
+
+.project-detail-modal {
+  height: 100%;
+  overflow-y: auto;
+  // Add the same slide-up animation as AboutModal
+  animation: slide-up $transition-slow;
+  
+  // Custom scrollbar
+  // Hide scrollbar completely
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // For Firefox
+  scrollbar-width: none;
+}
+
+.project-detail-close {
+  position: absolute;
+  top: $spacing-6;
+  right: $spacing-6;
+  background: none;
+  border: none;
+  color: $black;
+  font-size: 2rem;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  @include flex-center;
+  border-radius: 50%;
+  transition: all $transition-normal;
+  z-index: 10;
+  
+  // Firefox-specific fixes
+  line-height: 1;
+  padding: 0;
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    background: rgba($black, 0.2);
+    color: $black;
+    transform: scale(1.1);
+  }
+}
+
+.project-detail-content {
+  min-height: 100%;
+  padding: $spacing-12;
+  max-width: 80rem;
+  margin: 0 auto;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-8 $spacing-6;
+  }
+}
+
+.project-detail-header {
+  margin-bottom: $spacing-12;
+  text-align: center;
+  
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: $spacing-8;
+  }
+}
+
+.project-detail-title {
+  font-size: 3rem;
+  font-weight: $font-weight-extrabold;
+  color: $black;
+  margin-bottom: $spacing-4;
+  letter-spacing: -0.02em;
+  
+  @media (max-width: $breakpoint-sm) {
+    font-size: 2rem;
+  }
+}
+
+.project-detail-description {
+  font-size: 1.25rem;
+  color: $gray-600;
+  max-width: 42rem;
+  margin: 0 auto;
+  line-height: 1.6;
+  
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1.1rem;
+  }
+}
+
+.project-detail-image {
+  margin-bottom: $spacing-12;
+  border-radius: $spacing-4;
+  overflow: hidden;
+  height: 20rem;
+  
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: $spacing-8;
+  }
+}
+
+.detail-image {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+  transition: transform $transition-normal;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    height: 15rem;
+  }
+}
+
+.project-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+  
+  @media (max-width: $breakpoint-sm) {
+    gap: $spacing-8;
+  }
+}
+
+.project-overview {
+  .section-title {
+    font-size: 2rem;
+    font-weight: $font-weight-bold;
+    color: $gray-900;
+    margin-bottom: $spacing-6;
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.5rem;
+      margin-bottom: $spacing-4;
+    }
+  }
+}
+
+.project-details-text {
+  font-size: 1.1rem;
+  color: $gray-600;
+  line-height: 1.7;
+  
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1rem;
+  }
+}
+
+.project-technologies {
+  .tech-title {
+    font-size: 1.5rem;
+    font-weight: $font-weight-semibold;
+    color: $gray-900;
+    margin-bottom: $spacing-4;
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+}
+
+// Enhanced Glassmorphism Tech Tags
+.tech-tag {
+  padding: $spacing-2 $spacing-4;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: $black;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: $font-weight-medium;
+  transition: all $transition-normal;
+  position: relative;
+  overflow: hidden;
+  
+  // Subtle gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+.scaffolded-sections {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+// Enhanced Glassmorphism Scaffolded Sections
+.scaffolded-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: $spacing-4;
+  padding: $spacing-8;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  
+  // Enhanced gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: $font-weight-semibold;
+    color: $black;
+    margin-bottom: $spacing-6;
+    position: relative;
+    z-index: 1;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, $blue-600, $purple-600);
+      border-radius: 2px;
+    }
+  }
+}
+
+.placeholder-content {
+  position: relative;
+  z-index: 1;
+  
+  p {
+    color: $gray-600;
+    margin-bottom: $spacing-6;
+    font-style: italic;
+  }
+}
+
+// Enhanced Case Study Styling
+.case-study-content {
+  display: grid;
+  // gap: $spacing-6;
+}
+
+.case-study-section {
+  position: relative;
+  overflow: hidden;
+  transition: all $transition-normal;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+.case-study-subtitle {
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  color: $gray-900;
+  margin-bottom: $spacing-3;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  
+  // Color coding for different sections using your color variables
+  &:has-text("Challenge")::before {
+    background: linear-gradient(135deg, $purple-600, $purple-800);
+    box-shadow: 0 2px 8px rgba($purple-600, 0.3);
+  }
+  
+  &:has-text("Solution")::before {
+    background: linear-gradient(135deg, $blue-600, $blue-700);
+    box-shadow: 0 2px 8px rgba($blue-600, 0.3);
+  }
+  
+  &:has-text("Outcome")::before {
+    background: linear-gradient(135deg, $indigo-600, $indigo-800);
+    box-shadow: 0 2px 8px rgba($indigo-600, 0.3);
+  }
+  
+  &:has-text("Key Features")::before {
+    background: linear-gradient(135deg, $purple-600, $purple-900);
+    box-shadow: 0 2px 8px rgba($purple-600, 0.3);
+  }
+}
+
+.case-study-text {
+  color: $gray-700;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: $spacing-3;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-item {
+  padding: $spacing-3 $spacing-4;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: $spacing-2;
+  color: $gray-700;
+  font-size: 0.95rem;
+  position: relative;
+  padding-left: $spacing-8;
+  transition: all $transition-normal;
+  
+  &::before {
+    content: '✦';
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $blue-600;
+    font-weight: bold;
+    font-size: 0.875rem;
+  }
+}
+
+// Enhanced Project Links
+.project-links {
+  display: flex;
+  gap: $spacing-4;
+  flex-wrap: wrap;
+  margin-top: $spacing-4;
+}
+
+.placeholder-link {
+  padding: $spacing-3 $spacing-6;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: $gray-800;
+  border-radius: $spacing-3;
+  font-weight: $font-weight-medium;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all $transition-normal;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  svg {
+    font-size: 1.125rem;
+    transition: transform $transition-normal;
+  }
+  
+  // Specific styling for different link types using your color variables
+  &.live-link {
+    background: linear-gradient(135deg, rgba($indigo-600, 0.15), rgba($indigo-600, 0.05));
+    border-color: rgba($indigo-600, 0.3);
+    color: $indigo-800;
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba($indigo-600, 0.25), rgba($indigo-600, 0.1));
+      border-color: rgba($indigo-600, 0.4);
+    }
+  }
+  
+  &.github-link {
+    background: linear-gradient(135deg, rgba($gray-700, 0.15), rgba($gray-700, 0.05));
+    border-color: rgba($gray-700, 0.3);
+    color: $gray-800;
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba($gray-700, 0.25), rgba($gray-700, 0.1));
+      border-color: rgba($gray-700, 0.4);
+    }
+  }
+  
+  &.case-study-link {
+    background: linear-gradient(135deg, rgba($blue-600, 0.15), rgba($blue-600, 0.05));
+    border-color: rgba($blue-600, 0.3);
+    color: $blue-700;
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba($blue-600, 0.25), rgba($blue-600, 0.1));
+      border-color: rgba($blue-600, 0.4);
+    }
+  }
+  
+  &.npm-link {
+    background: linear-gradient(135deg, rgba($purple-600, 0.15), rgba($purple-600, 0.05));
+    border-color: rgba($purple-600, 0.3);
+    color: $purple-600;
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba($purple-600, 0.25), rgba($purple-600, 0.1));
+      border-color: rgba($purple-600, 0.4);
+    }
+  }
+}
+
+// Gallery Enhancements
+.gallery-row {
+  display: flex;
+  gap: $spacing-3;
+  overflow-x: auto;
+  padding-bottom: $spacing-3;
+  
+  // Enhanced minimal scrollbar styling
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 2px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.6));
+    border-radius: 2px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all $transition-normal;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    &:hover {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
+      transform: scaleY(1.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    &:active {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9));
+    }
+  }
+  
+  // Firefox scrollbar styling
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+.gallery-item {
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: $spacing-2;
+  overflow: hidden;
+  height: 140px;
+  transition: all $transition-normal;
+  // box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-image {
+  width: 240px;
+  height: 140px;
+  object-fit: cover;
+  transition: transform $transition-normal;
+}
+
+// Enhanced Image Modal with consistent animations
+.image-expanded-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade-in $transition-normal ease-out;
+}
+
+.image-expanded-modal {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  // Add the same slide-up animation as other modals
+  animation: slide-up $transition-slow;
+}
+
+.image-expanded-close {
+  position: fixed;
+  top: $spacing-6;
+  right: $spacing-6;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $black;
+  font-size: 2rem;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  @include flex-center;
+  border-radius: 50%;
+  transition: all $transition-normal;
+  z-index: 10;
+  
+  // Firefox-specific fixes
+  line-height: 1;
+  padding: 0;
+  
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+   &:hover {
+    background: rgba($black, 0.2);
+    color: $black;
+    transform: scale(1.1);
+  }
+}
+
+.image-nav-button {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $black;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all $transition-normal;
+  z-index: 10;
+  
+  &.image-nav-prev {
+    left: $spacing-6;
+  }
+  
+  &.image-nav-next {
+    right: $spacing-6;
+  }
+  
+  &:hover {
+    background: rgba($black, 0.2);
+    color: $black;
+  }
+}
+
+.image-expanded-content {
+  position: relative;
+  // Add smooth transition for image changes
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-expanded {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: $spacing-2;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  // Smooth transition for image swaps
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  
+  // Add a subtle scaling effect during transitions
+  &.changing {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+.image-subtitle {
+  text-align: center;
+  color: $black;
+  margin-top: $spacing-6;
+  font-size: 1.125rem;
+  font-weight: $font-weight-medium;
+  // Smooth transition for subtitle changes
+  transition: all 0.3s ease;
+  padding: $spacing-2 $spacing-4;
+}
+
+.placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-4;
+  margin-top: $spacing-4;
+  
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.placeholder-item {
+  height: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: $spacing-2;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  opacity: 0.8;
+  animation: pulse 2s ease-in-out infinite alternate;
+}
+
+.placeholder-text {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+}
+
+.placeholder-line {
+  height: 16px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0.7;
+  animation: pulse 2s ease-in-out infinite alternate;
+  
+  &.short {
+    width: 60%;
+  }
+  
+  &.medium {
+    width: 80%;
+  }
+}
+
+// Shared keyframe animations
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .image-expanded-close,
+  .project-detail-close {
+    top: $spacing-2;
+    right: $spacing-2;
+  }
+}
+
+// Responsive adjustments for navigation buttons
+@media (max-width: $breakpoint-md) {
+  .image-nav-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    
+    &.image-nav-prev {
+      left: $spacing-4;
+    }
+    
+    &.image-nav-next {
+      right: $spacing-4;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .image-nav-button {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    
+    &.image-nav-prev {
+      left: $spacing-3;
+    }
+    
+    &.image-nav-next {
+      right: $spacing-3;
+    }
+  }
+  
+  .image-expanded-close {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+}

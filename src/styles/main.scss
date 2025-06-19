@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import './variables';
+@import './mixins';
+
+// Reset and base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-family-sans;
+  font-weight: $font-weight-normal;
+  line-height: 1.5;
+  color: $black;
+  background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  // @include galactic-gradient;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray-600;
+  border-radius: 4px;
+  
+  &:hover {
+    background: $gray-700;
+  }
+}
+
+// Utility classes
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+}
+
+// Animation classes
+.animate-fade-in {
+  animation: fade-in $transition-slow forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out $transition-slow forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up $transition-normal forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in $transition-normal forwards;
+}
+
+// Transition utilities
+.transition-all {
+  transition: all $transition-normal;
+}
+
+.transition-opacity {
+  transition: opacity $transition-normal;
+}
+
+.transition-transform {
+  transition: transform $transition-normal;
+}
+
+.transition-filter {
+  transition: filter $transition-normal;
+}
+
+// Layout utilities
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.flex-center {
+  @include flex-center;
+}
+
+.absolute-center {
+  @include absolute-center;
+}
+
+.absolute-full {
+  @include absolute-full;
+}
+
+// App-specific styles
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}

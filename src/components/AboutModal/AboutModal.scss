@@ -1,0 +1,152 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.about-modal-overlay {
+  @include absolute-full;
+  z-index: $z-index-modal;
+  @include flex-center;
+  padding: $spacing-8;
+  background: rgba($white, 0.8);
+  @include backdrop-blur;
+  animation: fade-in $transition-normal ease-out;
+}
+
+.about-modal {
+  border-radius: $spacing-6;
+  max-width: 56rem;
+  width: 100%;
+  // max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slide-up $transition-slow;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+}
+
+.about-modal-close {
+  position: absolute;
+  top: $spacing-6;
+  right: $spacing-6;
+  background: none;
+  border: none;
+  color: $black;
+  font-size: 2rem;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  @include flex-center;
+  border-radius: 50%;
+  transition: all $transition-normal;
+  z-index: 10;
+  
+  // Firefox-specific fixes
+  line-height: 1;
+  padding: 0;
+  
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    background: rgba($black, 0.2);
+    color: $black;
+    transform: scale(1.1);
+  }
+
+  @media (max-width: $breakpoint-md) {
+    top: $spacing-2;
+    right: $spacing-2;
+  }
+}
+
+.about-modal-content {
+  padding: $spacing-12;
+  color: $white;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-8;
+  }
+}
+
+.about-modal-title {
+  font-size: 2.5rem;
+  font-weight: $font-weight-extrabold;
+  margin-bottom: $spacing-8;
+  letter-spacing: -0.02em;
+  color: $black;
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 2rem;
+    margin-bottom: $spacing-6;
+  }
+}
+
+.about-modal-text {
+  margin-bottom: $spacing-8 + $spacing-2;
+}
+
+.about-modal-paragraph {
+  color: $gray-600;
+  line-height: 1.7;
+  margin-bottom: $spacing-6;
+  font-size: 1.1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.about-modal-skills {
+  border-top: 1px solid rgba($white, 0.1);
+  padding-top: $spacing-8;
+}
+
+.skills-title {
+  font-size: 1.5rem;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-6;
+  color: $black;
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1.25rem;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.skill-item {
+  color: $gray-600;
+  font-size: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  svg {
+    color: $black;
+    height: 20px;
+    width: 20px;
+    margin-right: $spacing-2;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 0.9rem;
+  }
+}

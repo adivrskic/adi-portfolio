@@ -1,0 +1,86 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.loader {
+  @include absolute-full;
+  z-index: $z-index-loader;
+  @include flex-center;
+  transition: opacity $transition-slower;
+  
+  &.fade-out {
+    opacity: 0;
+  }
+}
+
+.loader-background {
+  @include absolute-full;
+  opacity: 1;
+  transition: opacity $transition-slower;
+  
+  &.visible {
+    opacity: 1;
+    @include galactic-gradient;
+  }
+}
+
+.loader-content {
+  z-index: 10;
+  transition: opacity $transition-slower;
+}
+
+.loader-text {
+  text-align: center;
+  color: $white;
+  font-family: $font-family-sans;
+  text-transform: uppercase;
+
+}
+
+.loader-name {
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: $font-weight-extrabold;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  
+  .name-first {
+    display: block;
+    text-align: right;
+  }
+  
+  .name-last {
+    display: block;
+    text-align: right;
+    margin-top: -0.1em;
+  }
+}
+
+// Entrance animations
+.loader-enter {
+  .loader-name {
+    animation: name-entrance 1s $transition-slow forwards;
+  }
+}
+
+@keyframes name-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-lg) {
+  .loader-name {
+    font-size: clamp(3rem, 10vw, 6rem);
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .loader-name {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+  }
+}
